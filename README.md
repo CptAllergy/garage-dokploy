@@ -63,7 +63,44 @@ alias garage="sudo docker exec -ti <container_name> /garage"
 
 ---
 
-## 4. Key Retrieval
+## 4. CORS Configuration
+
+To add CORS configuration to your bucket, create a `cors.json` file with the following content:
+
+```json
+  {
+   "CORSRules": [
+      {
+         "AllowedOrigins": [
+            "https://example.com"
+         ],
+         "AllowedMethods": [
+            "GET",
+            "PUT",
+            "HEAD"
+         ],
+         "AllowedHeaders": [
+            "*"
+         ],
+         "ExposeHeaders": [
+            "ETag"
+         ],
+         "MaxAgeSeconds": 3600
+      }
+   ]
+}
+
+```
+
+Then apply the CORS configuration to your bucket:
+
+```bash
+aws s3api put-bucket-cors --bucket application-bucket --cors-configuration file://cors.json --endpoint-url https://s3.example.com
+```
+
+---
+
+## 5. Key Retrieval
 
 To view the Access Key ID and Secret Key for an existing API key:
 
