@@ -4,6 +4,8 @@ services:
     volumes:
       - ../files/garage.toml:/etc/garage.toml
       - garage-storage:/var/lib/garage
+    networks:
+      - dokploy-network
     restart: unless-stopped
     expose:
       - 3900
@@ -11,3 +13,7 @@ services:
       - 3903
 volumes:
   garage-storage: {}
+networks:
+  dokploy-network:
+    external: true
+
